@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
         self.cmd_tab = CommandTab()
 
         self.tabs = QTabWidget()
-        self.tabs.addTab(self.log_tab, "Log")
+        self.tabs.addTab(self.log_tab, "Registro de Ejecuciones")
         self.tabs.addTab(self.cmd_tab, "Centro de mando")
         self.setCentralWidget(self.tabs)
 
@@ -25,9 +25,8 @@ class MainWindow(QMainWindow):
         self.status = QStatusBar()
         self.setStatusBar(self.status)
 
-        # Menú y toolbar
+        # Menu
         self._setup_menu()
-        self._setup_toolbar()
 
         # Señales
         self.cmd_tab.start_requested.connect(self.on_start)
@@ -40,31 +39,65 @@ class MainWindow(QMainWindow):
         self.worker: Optional[ETLWorker] = None
         self.current_input: Optional[Path] = None
 
-    # ---- UI scaffolding ----
+    # ---- Menu superior  ----
     def _setup_menu(self):
+        """
+        Mapea el menu superior
+        """
+        # Instanciar una barra para el menu 
         menubar = QMenuBar(self)
+
+        # ---- Menu Desplegable: Archivo ----
         file_menu = QMenu("Archivo", self)
-
-        export_csv = QAction("Exportar log a CSV", self)
-        export_csv.triggered.connect(self.on_export_log)
-
-        reload_log = QAction("Recargar log", self)
-        reload_log.triggered.connect(self.log_tab.reload)
-
+        # Definimos Acciones en este menu: cada QAction se mapea como un boton
+        export_csv = QAction("Exportar log a CSV", self) # Accion 1 asociada al menu desplegable de archivo. Se mapea tambien como boton
+        export_csv.triggered.connect(self.on_export_log) # Coneccion de la accion del menu desplegable con alguna funcion 
+        reload_log = QAction("Recargar log", self) # Accion 2
+        reload_log.triggered.connect(self.log_tab.reload) # Coneccion entre la Accion 2 y alguna fncion interna de la clase 
+        # Añadir cada accion al menu de archivo 
         file_menu.addAction(export_csv)
         file_menu.addAction(reload_log)
+        # Añadir el menu de archivo a la barra de menu 
         menubar.addMenu(file_menu)
-        self.setMenuBar(menubar)
 
-    def _setup_toolbar(self):
-        tb = QToolBar("Acciones")
-        self.addToolBar(tb)
-        act_run = QAction("Ejecutar ETL", self)
+        # ---- Menu desplegable: Ejecutar CICLO ETL  ----
+        ejecutar_menu = QMenu("Ejecutar", self)
+        # Definimos un accion 
+        act_run = QAction("Ejecutar ETL", self) # Accion 1 
         act_run.triggered.connect(lambda: self.cmd_tab._start())
+        # Agregar dicha accion al menu desplegable 
+        ejecutar_menu.addAction(act_run)
+        # Añadir el menu de archivo a la barra de menu 
+        menubar.addMenu(ejecutar_menu)
+
+        # ---- Menu desplegable: Recargar Log   ----
+        recargar_menu = QMenu("Log", self)
+        # Definimos una accion en el menu 
         act_reload = QAction("Recargar log", self)
         act_reload.triggered.connect(self.log_tab.reload)
-        tb.addAction(act_run)
-        tb.addAction(act_reload)
+        # Agregar accion al menu desplegable asociado 
+        recargar_menu.addAction(act_reload)
+        # Añadir el menu de archivo a la barra de meu 
+        menubar.addMenu(recargar_menu)
+
+
+        # ---- Menu desplegable: Recargar Log   ----
+        info_menu = QMenu("Info", self)
+        # Definimos una accion en el menu 
+        act_info = QAction("About", self)
+        act_info.triggered.connect(self.show_app_info)
+        # Agregar accion al menu desplegable asociado 
+        info_menu.addAction(act_info)
+        # Añadir el menu de archivo a la barra de meu 
+        menubar.addMenu(info_menu)
+
+
+        # ---- Version ---- 
+        version_menu = QMenu(f"Version:     {settings.VERSION}", self)
+        menubar.addMenu(version_menu) 
+
+        # Setear el Menubar con el menubar compuesto por todos los elementos anteriores
+        self.setMenuBar(menubar)
 
     # ---- Acciones ----
     def _forward_search_to_log(self, text: str):
@@ -140,4 +173,25 @@ class MainWindow(QMainWindow):
     def on_worker_canceled(self):
         self.status.showMessage("Proceso cancelado")
         QMessageBox.information(self, "Cancelado", "El proceso fue cancelado")
+
+
+    def show_app_info(self): 
+        """
+        Pinta una tarjeta con la informacion del aplicativo 
+        """
+        QMessageBox.information(
+            self, 
+            "Sobre la aplicacion",
+            f"""
+            Nombre aplicacion: {settings.APP_TITLE}
+            VERSION: {settings.VERSION}
+            MODELO OCR: {settings.OCR_MODEL}
+
+
+            Grupo KC.
+
+            AUTOR: Mauricio Casarin
+            """
+        )
+
 

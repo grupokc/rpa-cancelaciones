@@ -8,7 +8,6 @@ from models.log_table import LogTableModel
 class LogTab(QWidget):
     def __init__(self, parent: Optional[QWidget] = None):
         super().__init__(parent)
-
         self.table_model = LogTableModel(read_log_rows(), settings.LOG_HEADERS, self)
         self.proxy = QSortFilterProxyModel(self)
         self.proxy.setSourceModel(self.table_model)
@@ -21,7 +20,8 @@ class LogTab(QWidget):
         self.table_view.setSelectionBehavior(QTableView.SelectRows)
         self.table_view.setAlternatingRowColors(True)
         self.table_view.horizontalHeader().setStretchLastSection(True)
-        self.table_view.setStyleSheet("""
+        self.table_view.setStyleSheet(
+            """
             QTableView {
                 background-color: #000000; /* Azul corporativo como fondo principal */
                 gridline-color: #333333; /* Líneas de cuadrícula oscuras y marcadas */
@@ -59,7 +59,8 @@ class LogTab(QWidget):
             QTableView::item:focus {
                 border: 2px solid #0078d4; /* Borde azul más grueso para celdas enfocadas */
             }   
-    """)
+        """
+        )
 
 
         self.search_edit = QLineEdit(self)
@@ -67,7 +68,7 @@ class LogTab(QWidget):
         self.search_edit.textChanged.connect(self.proxy.setFilterFixedString)
 
         layout = QVBoxLayout(self)
-        layout.addWidget(QLabel("Log de ejecuciones"))
+        # layout.addWidget(QLabel("Log de ejecuciones"))
         layout.addWidget(self.search_edit)
         layout.addWidget(self.table_view)
 

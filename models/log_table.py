@@ -4,6 +4,10 @@ from components import *
 # ---------------------- Modelo de Tabla ----------------------
 
 class LogTableModel(QAbstractTableModel):
+    """
+    Modelo para el log de la tabla del ciclo ETL 
+    """
+
     def __init__(self, data: list[list[str]], headers: list[str], parent: Optional[QObject] = None):
         super().__init__(parent)
         self._data = data

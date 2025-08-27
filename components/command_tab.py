@@ -11,7 +11,7 @@ class CommandTab(QWidget):
         super().__init__(parent)
         self.selected_file: Optional[Path] = None
 
-        self.file_label = QLabel("Archivo de entrada: —")
+        self.file_label = QLabel("Archivo de entrada: ")
         self.btn_select = QPushButton("Seleccionar .xlsx…")
         self.btn_start = QPushButton("Ejecutar ETL")
         self.btn_cancel = QPushButton("Cancelar")
