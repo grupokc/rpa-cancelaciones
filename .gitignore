@@ -215,3 +215,7 @@ estructura_proyecto.txt
 *.log
 
 *.zip
+
+
+*.xlsx 
+*.csv
