@@ -13,3 +13,5 @@ from typing import Literal
 import random
 import uuid
 import sys
+
+from config import settings 
