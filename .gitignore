@@ -219,3 +219,6 @@ estructura_proyecto.txt
 
 *.xlsx 
 *.csv
+
+
+*.ipynb

@@ -19,12 +19,12 @@ class Settings(BaseSettings):
     
     # ---- Sobre la tabla de log ---- 
     LOG_HEADERS: list = [
-    "Fecha Extraccion",
-    "Archivo Entrada",
-    "Archivo Salida",
-    "Total Registros",
+        "Fecha Extraccion",
+        "Archivo Entrada",
+        "Archivo Salida",
+        "Total Registros",
     ]
-    LOG_FILE: Path =  Path("log/ETL_log.csv")
+    LOG_FILE: Path =  Path("log/etl_log.csv")
 
     # ---- Sobre el proceso ETL  ---- 
     OCR_MODEL: str = "Hermes_v1" 
