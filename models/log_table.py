@@ -1,7 +1,6 @@
 from components import * 
 
 
-# ---------------------- Modelo de Tabla ----------------------
 
 class LogTableModel(QAbstractTableModel):
     """

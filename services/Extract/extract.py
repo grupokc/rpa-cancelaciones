@@ -11,7 +11,17 @@ def extract_rfc(
     delay_actions: int = 1, 
     clave_extraccion: str = "Testing"
     ):
+    """
+    Busca usando las herramientas de Hermes.Extract los rfc que se proporcionen en el dataframe entrante. 
+
+    Args. 
+        df_base (pd.DataFrame): dataframe inicial para el ciclo ETL. 
+        column_name (str): 
+        registros_por_recorrido (int): 
+        delay_actions (int)
+        clave_extraccion (str)
     
+    """
     if not column_name in df_base.columns.to_list(): 
         msg = f"El archivo no contiene la columna necesaria: {column_name}"
         raise ValueError(msg)

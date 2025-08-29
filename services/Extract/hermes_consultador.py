@@ -4,6 +4,8 @@ from services.Extract.hermes_extract_base import HermesExtract
 from services.Extract.hermes_actions import HermesActions
 
 
+# No parece ser necesario que hermes
+
 class HermesConsultador(
     HermesExtract, # Para poder fijar los directorios 
     HermesActions # Para poder hacer las acciones estandares
@@ -61,8 +63,6 @@ class HermesConsultador(
         self.fill(poliza)
 
     def input_nombre(self, nombre: str):
-        """ 
-        """
         self.mclick(502, 351)
         self.fill(nombre)
 
@@ -102,7 +102,6 @@ class HermesConsultador(
 
         
     def ss(self, prefijo: str, sufijo: str, path_to_save: str |  Path): 
-    
         """La funcion se encarga de tomar una screen shot cuando sea llamada
         tipo: str (será el prefijo con el que se guardara el archivo.png); poliza: str (será el sufijo con el que se guarda el archivo)"""
         

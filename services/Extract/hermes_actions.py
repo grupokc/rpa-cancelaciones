@@ -1,17 +1,22 @@
+"""
+La clase representa las principales acciones que debe ejecutar hermes para contrlar la GUI. 
+
+"""
+
 from services.Extract import * 
-# Las demas clases heredaran de Hermes Extract 
 
 
 class HermesActions(): 
-
     """
     Hermes en Extraccion, especializado en realizar acciones, tales como
     escribir, click, screenshot, 
     """
 
     def mclick(self, a, b):
-        """la funcion se encargara de moverse al vector (a, b) para posterioremente hacer click sobre el
-        a : x-axis ; b: y-axis"""
+        """
+        la funcion se encargara de moverse al vector (a, b) para posterioremente hacer click sobre el
+        a : x-axis ; b: y-axis
+        """
         time.sleep(.4)
         pyautogui.moveTo(a, b)
         pyautogui.click()
@@ -26,8 +31,11 @@ class HermesActions():
         (x, y) = pyautogui.position()
         return ((x, y))
 
+
     def fill(self, texto_input: str):
-        """Esta funcion se encarga de escribir y mandar las teclas"""
+        """
+        Esta funcion se encarga de escribir y mandar las teclas
+        """
         try:
             texto_al_input = str(texto_input)
             # Borrar con keyboard
@@ -63,8 +71,6 @@ class HermesActions():
             - mclick: mueve y hace un click en los vectores que pase el key
 
         Las acciones se ejecutaran en el orden en que se pasen en su diccionario. 
-
-
         """
         for order, action in actions.items():
             time.sleep(delay_btween_action)

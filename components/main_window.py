@@ -4,8 +4,7 @@ from components.command_tab import CommandTab
 from components.log_tab import LogTab 
 from models.etl_result import ETLResult
 from models.etl_worker import ETLWorker
-
-# ---------------------- Ventana principal ----------------------
+from services.utils import get_date
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -81,7 +80,7 @@ class MainWindow(QMainWindow):
         menubar.addMenu(recargar_menu)
 
 
-        # ---- Menu desplegable: Recargar Log   ----
+        # ---- Menu desplegable:  About App   ----
         info_menu = QMenu("Info", self)
         # Definimos una accion en el menu 
         act_info = QAction("About", self)
@@ -179,18 +178,16 @@ class MainWindow(QMainWindow):
         """
         Pinta una tarjeta con la informacion del aplicativo 
         """
-        QMessageBox.information(
+        QMessageBox.warning(
             self, 
             "Sobre la aplicacion",
             f"""
             Nombre aplicacion: {settings.APP_TITLE}
             VERSION: {settings.VERSION}
             MODELO OCR: {settings.OCR_MODEL}
-
-
+            FECHA: {get_date()[:-4]}
             Grupo KC.
-
-            AUTOR: Mauricio Casarin
+            AUTOR: {settings.AUTOR}
             """
         )
 

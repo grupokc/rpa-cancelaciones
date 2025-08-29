@@ -2,3 +2,5 @@ PySide6
 pydantic
 pyautogui
 keyboard
+opencv-python
+

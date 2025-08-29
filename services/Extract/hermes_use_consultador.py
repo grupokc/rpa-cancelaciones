@@ -6,7 +6,12 @@ from services.Extract.hermes_consultador import HermesConsultador
 class HermesUseConsultador(HermesConsultador): 
     ruta_capturas = Path('../capturas') 
 
-    def _search_rfc(self, rfc: str, is_start_home: bool = False, screen_shot: bool = True):
+    def _search_rfc(
+        self,
+        rfc: str,
+        is_start_home: bool = False, 
+        screen_shot: bool = True
+    ):
         if is_start_home: 
             self.go_to_rfc_inpt()
         time.sleep(2)
@@ -21,10 +26,12 @@ class HermesUseConsultador(HermesConsultador):
         return file_name if screen_shot else None
     
     
-    def search_many_rfc(self, rfc_list: list[str], delay_btwn_searches: int):
-        
+    def search_many_rfc(
+        self, 
+        rfc_list: list[str],
+        delay_btwn_searches: int
+    ):
         searched = list()
-
         for id, rfc in enumerate(rfc_list): 
             time.sleep(delay_btwn_searches)
             self.clear_input_rfc()

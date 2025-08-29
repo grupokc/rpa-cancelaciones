@@ -35,7 +35,6 @@ class HermesLoad(HermesExtract):
 
 
     def load_log_base(self, file_name: str | Path): 
-
         try: 
             if isinstance(file_name, str):
                 file_name = Path(file_name)

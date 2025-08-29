@@ -40,3 +40,13 @@ def read_log_rows() -> list[list[str]]:
     if rows and rows[0] == settings.LOG_HEADERS:
         return rows[1:]
     return rows
+
+
+# ---------------------- Utilidades de Generales ----------------------
+
+import datetime as dt 
+
+def get_date() -> str: 
+    "Devuelve una cadena de la fecha"
+    return dt.datetime.now().strftime("%y%m%d%H%M%S")
+

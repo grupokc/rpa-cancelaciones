@@ -222,3 +222,8 @@ estructura_proyecto.txt
 
 
 *.ipynb
+
+# Directorios donde se almacenan archivos de forma local
+data/capturas/
+data/bd_generadas/
+data/bd_generadoras/
