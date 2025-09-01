@@ -158,12 +158,14 @@ class MainWindow(QMainWindow):
         # Registrar en log
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         in_name = self.current_input.name if self.current_input else "—"
-        out_name = result.output_path.name
-        append_log_row([now, in_name, out_name, str(result.total_records)])
+        out_extract_name = result.output_extract_path.name
+        out_result_name = result.output_result_path.name
 
+        # Agregar al log la extraccion
+        append_log_row([now, in_name, out_extract_name, str(result.total_records), out_result_name])
         self.log_tab.reload()
         self.status.showMessage("ETL finalizado")
-        QMessageBox.information(self, "Listo", f"Proceso completado. Salida: {out_name}")
+        QMessageBox.information(self, "Listo", f"Proceso completado. Salida: {out_result_name}")
 
     def on_worker_failed(self, err: str):
         QMessageBox.critical(self, "Error", f"El proceso falló:\n{err}")
@@ -186,8 +188,12 @@ class MainWindow(QMainWindow):
             VERSION: {settings.VERSION}
             MODELO OCR: {settings.OCR_MODEL}
             FECHA: {get_date()[:-4]}
+
+
             Grupo KC.
+            ---°---
             AUTOR: {settings.AUTOR}
+
             """
         )
 

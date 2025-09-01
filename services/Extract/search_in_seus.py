@@ -1,11 +1,10 @@
 from services.Extract import * 
-from services.Extract.hermes_consultador import HermesConsultador
+from services.Extract.consultador import Consultador
 
 
 
-class HermesUseConsultador(HermesConsultador): 
-    ruta_capturas = Path('../capturas') 
-
+class SearchInSeus(Consultador): 
+    
     def _search_rfc(
         self,
         rfc: str,
@@ -14,13 +13,14 @@ class HermesUseConsultador(HermesConsultador):
     ):
         if is_start_home: 
             self.go_to_rfc_inpt()
+            
         time.sleep(2)
         self.input_rfc(rfc=rfc)
         self.bttn_buscar_rfc()
 
         if screen_shot:
             time.sleep(1.2) 
-            file_name = self.ss(prefijo="rfc", sufijo=str(rfc), path_to_save=self.ruta_capturas)
+            file_name = self.ss(f"rfc_{rfc}")
 
         self.mclick(656,146)
         return file_name if screen_shot else None

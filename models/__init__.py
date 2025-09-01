@@ -36,5 +36,4 @@ from PySide6.QtWidgets import (
 )
 
 
-from services.utils import ensure_log_file, append_log_row, read_log_rows
 

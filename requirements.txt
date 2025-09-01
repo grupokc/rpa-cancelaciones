@@ -3,4 +3,5 @@ pydantic
 pyautogui
 keyboard
 opencv-python
-
+openpyxl
+pytesseract

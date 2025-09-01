@@ -1,12 +1,10 @@
 # ---------------------- main ----------------------
 import sys
 # from services.utils import ensure_log_file 
-from models import * 
 from components.main_window import MainWindow
 from PySide6.QtWidgets import QApplication
-
 from config import settings
-
+from services.utils import ensure_log_file
 
 def main():
     ensure_log_file()
@@ -18,6 +16,9 @@ def main():
 
 if __name__ == "__main__":
     # print(settings.ui.points)
-    vector = settings.ui.points.get("BUSCAR")
-    print(vector.x, vector.y)
+    # vector = settings.ui.points.get("BUSCAR")
+    # xa = type(settings.ui.points)
+    # print(xa)
+    # print(type(vector))
+    # print(vector.x, vector.y)
     main()

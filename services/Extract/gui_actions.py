@@ -8,7 +8,7 @@ from services.Extract.gui_messages import GUIMessages
 
 
 class GUIActions(GUIMessages): 
-    def __init__(self, dir_save_ss: str, dir_image_locate: str,ts_primary: int = 1, ts_secondary: int = 2, ): 
+    def __init__(self, dir_save_ss: str, dir_image_locate: str,ts_primary: float = 1, ts_secondary: int = 2, ): 
         print(f"Inicializado")
         self.ts_primary = ts_primary
         self.ts_secondary = ts_secondary
@@ -20,7 +20,7 @@ class GUIActions(GUIMessages):
         except Exception as e: 
             print(f"[Error.GUIActions] error al inicializar la clase: {str(e)}")
 
-    def move(self, x, y, hold: int = 1): 
+    def move(self, x, y, hold: int= 0): 
         """
         Mueve el cursor al pixel formado por las entradas x, y
         """
@@ -43,10 +43,19 @@ class GUIActions(GUIMessages):
         except Exception as e: 
             print(f"[Error | GUIActions] : {str(e)}")
 
+    def execute_clicks(self, vectores_acciones: dict[tuple]): 
+        for element in vectores_acciones: 
+            if not isinstance(element, tuple): 
+                continue
+            self.mclick(element[0], element[1])
+            time.sleep(self.ts_primary)
+        print("---flujo terminado---")
+        
     def press(self, key: str | list, presses: int = 1, interval: float = 0): 
         pyautogui.press(keys=key, presses=presses, interval=interval)
 
-    def ss(self, file_name: str, region: tuple[int, int, int, int], all_screens=True) -> Path: 
+
+    def ss(self, file_name: str, region: tuple[int, int, int, int] = None, all_screens=False) -> Path: 
         """ 
         Toma una captura de pantalla, la guarda en el directorio que se paso en el constructor y el nombre dado en el argumento file_name,
         si region no es nulo, tomara solo la screen de la region dada. 

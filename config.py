@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     
     # ---- Informacion del aplicativo ---- 
     APP_TITLE: str = "RPA: Disminuciones y Cancelaciones"
-    VERSION: str = "1.0.1"
+    VERSION: str = "1.0.7"
     AUTOR: str = "Mauricio Casarin"
     RESIZE_X: int = 1000 
     RESIZE_Y: int = 700
@@ -23,15 +23,18 @@ class Settings(BaseSettings):
     # ---- Sobre la tabla de log ---- 
     LOG_HEADERS: list = [
         "Fecha Extraccion",
-        "Archivo Entrada",
-        "Archivo Salida",
+        "Archivo Origen",
+        "Archivo Extraccion",
         "Total Registros",
+        "Archivo Resultante",
     ]
 
     # ---- Ruta de directorios relevantes ---- 
     CAPTURAS_DIR: Path = Path("data/capturas")
     BD_GENERADAS_DIR:  Path = Path("data/bd_generadas")
     BD_GENERADORAS_DIR: Path =Path("data/bd_generadoras")
+    STATIC_ELEMENTS_DIR: Path = Path("static")
+    
     LOG_FILE: Path =  Path("log/etl_log.csv")
     
     DIRS: list  = [CAPTURAS_DIR, BD_GENERADAS_DIR, BD_GENERADORAS_DIR]
