@@ -2,8 +2,6 @@ from services.Extract import *
 from services.Extract.hermes_use_consultador import HermesUseConsultador
 
 
-
-
 def extract_rfc(
     df_base: pd.DataFrame, 
     column_name: str = 'RFC',

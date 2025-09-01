@@ -1,0 +1,29 @@
+version: 1
+profile: "BASICO"
+
+points:
+  # Dentro del Consultador
+  BUSCAR:      {x: 280, y: 169}
+  TAB_CONTACTOS: {x: 218, y: 208}
+  LIMPIAR:      {x: 222, y: 169}
+  BAJAR:       {x: 453, y: 168}
+  INP_POLIZA:      {x: 126, y: 263}
+  INP_NOMBRE:      {x: 502, y: 351}
+  INP_PATERNO:      {x: 100, y: 351}
+  INP_MATERNO:      {x: 303, y: 351}
+  INP_RETENEDOR:      {x: 576, y: 409}
+
+  # Botones en el RFC 
+  BUSCAR_RFC:      {x: 690, y: 267}
+  INP_RFC:      {x: 240, y: 403}
+  BORRAR_RFC:      {x: 222, y: 147}
+
+  # Top Menu 
+  GENERALES: {x: 388, y: 93}
+  GENERALES_RFC: {x: 415, y: 130}
+  GENERALES_CONSULTADOR: {x: 222, y: 147}
+  EXPANDIR_RFC: {x: 120, y: 70}
+
+
+regions:
+  TABLA:       {left: 100, top: 200, width: 900, height: 500}

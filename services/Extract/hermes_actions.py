@@ -1,5 +1,9 @@
 """
-La clase representa las principales acciones que debe ejecutar hermes para contrlar la GUI. 
+La clase representa las principales acciones que debe ejecutar hermes para contrlar la GUI.
+
+
+¡¡Deprecated, usar gui_actions.py!! 
+
 
 """
 
@@ -20,7 +24,6 @@ class HermesActions():
         time.sleep(.4)
         pyautogui.moveTo(a, b)
         pyautogui.click()
-    
 
     def get_click(self):
         """
@@ -30,7 +33,6 @@ class HermesActions():
         time.sleep(3)
         (x, y) = pyautogui.position()
         return ((x, y))
-
 
     def fill(self, texto_input: str):
         """
@@ -43,7 +45,6 @@ class HermesActions():
         except Exception as e:
             print(f"Error: {e}")
 
-
     def rellenar(self, argument, x, y):
         """
         La funcion concatena a las funciones mclick, y new_fill.
@@ -52,18 +53,17 @@ class HermesActions():
         time.sleep(0.3)
         self.fill(argument)
 
-
-
     def execute_this_actions(self,
         actions: dict[tuple | str : Literal["fill", "mclick"]], 
         delay_btween_action: int = 0 
         ) -> bool: 
         """ 
         Ejecuta las acciones que se declaren en actions, el cual debe tener la forma:
+
         acciones = {
-        (x2, y2): "mclick",
-        "Textopara rellenar": "fill",        
-        (x3, 63) :  "mclick"
+            (x2, y2): "mclick",
+            "Textopara rellenar": "fill",        
+            (x3, 63) :  "mclick"
         }
 
         Dentro de las acciones permitidas se encuentran : 

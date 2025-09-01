@@ -5,7 +5,6 @@ from services.Extract.hermes_extract_base import HermesExtract
 
 
 class HermesChecker(HermesExtract):
-
     def _get_rgb(
         self,
         pix: tuple[int, int],
@@ -15,18 +14,13 @@ class HermesChecker(HermesExtract):
 
         if not isinstance(delay, float): 
             raise ValueError("El delay debe ser un float")
-        
-
         time.sleep(delay)
-
         if pixeles: 
             all_rgb = list()
             for pix in pixeles: 
                 try: 
                     rgb = pyautogui.pixel(pix[0], pix[1])
                     all_rgb.append(rgb)
-            
-
                 except Exception as e: 
                     print(f"Error en el pix: {pix}. Error: {e}")
 

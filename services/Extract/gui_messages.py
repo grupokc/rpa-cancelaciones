@@ -7,7 +7,7 @@ class GUIMessages():
     def alert(self, mensaje): 
         pyautogui.alert( mensaje)
 
-    def confirm(self, mensaje, buttons): 
+    def confirm(self, mensaje, buttons: list['str']): 
         pyautogui.confirm(mensaje, buttons=buttons)
 
     def prompt(self, mensaje): 

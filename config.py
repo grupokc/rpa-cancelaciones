@@ -3,7 +3,10 @@ Encapsula todas las variables para la configuracion de la aplicacion.
 """
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import field_validator
 from pathlib import Path
+from models.vectores import Point, UIMap
+import yaml 
 
 class Settings(BaseSettings):   
 
@@ -36,6 +39,22 @@ class Settings(BaseSettings):
     # ---- Sobre el proceso ETL  ---- 
     OCR_MODEL: str = "Hermes_v1" 
     CLAVE_EXTRACCION: str = "Testing"
+
+
+    # ---- Vectores del Consultador  ----
+    ui_file: Path = Path("vectores") # carpeta base
+    ui: UIMap | None = None
+
+    
+    @field_validator("ui")
+    def load_ui(cls, v, values):
+        # base = values.get("ui_file", Path("config"))
+        base: Path = Path("vectores") # carpeta base
+        path = base / f"ui_vectores.yaml"
+        if not path.exists():
+            raise FileNotFoundError(f"No existe config UI: {path}")
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+        return UIMap(**data) 
 
 
 

@@ -29,7 +29,7 @@ class ETLWorker(QObject):
                 self.progress.emit("Procesando…")
                 time.sleep(0.3)
 
-            # Aquí llamas tu backend real
+            # backend real
             result = run_backend_etl(self.input_path, cancel_flag=lambda: self._cancel)
             if result is None:  # cancelado desde backend
                 self.canceled.emit()

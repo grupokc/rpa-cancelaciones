@@ -16,12 +16,11 @@ class HermesConsultador(
     """
     # Serie de clicks para llegar al consultador 
     acciones_to_rfc = {
-        (388,93): "mclick",
+        (388, 93): "mclick", 
         (415, 130): "mclick", 
         (120, 70): "mclick", # Expandir el la pestaña
-
     }
-
+    
     # Serie de clicks para llegar al consultador 
     acciones_to_consultador = {
         (388,93): "mclick",
@@ -44,7 +43,6 @@ class HermesConsultador(
         """La función toma de apoyo a mclick de hermes, y ejecuta un click en el vector fijo de limpiar campos dentro del consultador
         Retorna: None, ejecuta un click"""
         self.mclick(222, 169)
-    
 
     def btn_bajar(self):
         """
@@ -57,7 +55,6 @@ class HermesConsultador(
         Rellena el input de la poliza dentro del consultador.
         Args:
         poliza (str): La poliza a rellenar.
-
         """
         self.mclick(126, 263)
         self.fill(poliza)
