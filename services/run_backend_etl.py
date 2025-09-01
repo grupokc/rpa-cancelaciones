@@ -20,23 +20,7 @@ def run_backend_etl(input_path: Path, cancel_flag=lambda: False) -> Optional[ETL
 
     # TODO: Iniciar la transformacion 
 
-    # # Simulación: contar filas de un .xlsx sería tu lógica real.
-    # # Aquí solo dormimos y generamos nombres.
-    # for _ in range(10):
-    #     if cancel_flag():
-    #         return None
-    #     time.sleep(0.1)
 
-
-    # "Calculamos" cantidad de registros
-    # total_records = 1234  # Reemplaza con tu conteo real
-
-    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    # output_name = f"ETL_OUT_{timestamp}.xlsx"
-    # output_path = settings.BD_GENERADAS_DIR / output_name
-
-    # Aquí tu backend debe crear realmente el archivo de salida.
-    # Nosotros sólo lo simulamos
     try:
         output_path.touch(exist_ok=True)
     except Exception:
