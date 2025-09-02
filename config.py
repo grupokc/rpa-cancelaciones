@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     
     LOG_FILE: Path =  Path("log/etl_log.csv")
     
-    DIRS: list  = [CAPTURAS_DIR, BD_GENERADAS_DIR, BD_GENERADORAS_DIR]
+    DIRS: list  = [CAPTURAS_DIR, BD_GENERADAS_DIR, BD_GENERADORAS_DIR, LOG_FILE.parent]
 
     # ---- Sobre el proceso ETL  ---- 
     CLAVE_EXTRACCION: str = "Testing"
@@ -71,3 +71,6 @@ settings = Settings()
 # Asegurar que las carpetas necesarias existan
 for dir in settings.DIRS: 
     dir.mkdir(parents=True, exist_ok=True)
+
+if settings.LOG_FILE.exists() is False:
+    settings.LOG_FILE.write_text(",".join(settings.LOG_HEADERS) + "\n", encoding="utf-8")

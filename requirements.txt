@@ -5,3 +5,6 @@ keyboard
 opencv-python
 openpyxl
 pytesseract
+pydantic_settings
+pyaml
+pandas 
