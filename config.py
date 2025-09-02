@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     
     # ---- Informacion del aplicativo ---- 
     APP_TITLE: str = "RPA: Disminuciones y Cancelaciones"
-    VERSION: str = "1.0.7"
+    VERSION: str = "2.0.0"
     AUTOR: str = "Mauricio Casarin"
     RESIZE_X: int = 1000 
     RESIZE_Y: int = 700
@@ -34,14 +34,14 @@ class Settings(BaseSettings):
     BD_GENERADAS_DIR:  Path = Path("data/bd_generadas")
     BD_GENERADORAS_DIR: Path =Path("data/bd_generadoras")
     STATIC_ELEMENTS_DIR: Path = Path("static")
-    
     LOG_FILE: Path =  Path("log/etl_log.csv")
     
     DIRS: list  = [CAPTURAS_DIR, BD_GENERADAS_DIR, BD_GENERADORAS_DIR, LOG_FILE.parent]
 
-    # ---- Sobre el proceso ETL  ---- 
-    CLAVE_EXTRACCION: str = "Testing"
 
+    # ---- Sobre el proceso ETL  ---- 
+    CLAVE_EXTRACCION: str = "DEV"
+    # CLAVE_EXTRACCION: str = "BI"
 
     # ---- Vectores del Consultador  ----
     ui_file: Path = Path("vectores") # carpeta base
@@ -61,16 +61,18 @@ class Settings(BaseSettings):
     CUSTOM_CONFIG: str = "dpi 300 --psm 6"
     MODELO_HERMES_OCR: str =  "Hermes_v1"
     COL_TRANSFORM: list = [
-        'FILE_NAME',
         'RFC', 
+        'FILE_NAME',
         'NOMBRE'
      ]
 
+# Setear las configuraciones 
 settings = Settings()
 
 # Asegurar que las carpetas necesarias existan
 for dir in settings.DIRS: 
     dir.mkdir(parents=True, exist_ok=True)
-
+    
+# Log de etl  
 if settings.LOG_FILE.exists() is False:
     settings.LOG_FILE.write_text(",".join(settings.LOG_HEADERS) + "\n", encoding="utf-8")

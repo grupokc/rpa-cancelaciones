@@ -8,7 +8,7 @@ from pathlib import Path
 import pytesseract
 from PIL import Image
 from config import settings
-
+from models.vectores import Regions
 
 HERMES_OCR = settings.MODELO_HERMES_OCR 
 RI_RFC = settings.ui.regions.get("TABLA_RFC") # Region de interes para el recorte 
@@ -19,16 +19,24 @@ CUSTOM_CONFIG_OCR = settings.CUSTOM_CONFIG
 def transform_process_rfc(
     dframe : pd.DataFrame, 
     ocr: str = HERMES_OCR, 
-    crop: tuple = RI_RFC, 
+    crop: Regions = RI_RFC, 
 )-> dict: 
     """
-    Transforma la imagen en texto
-    
+    Transforma las imagenes que se encuentran en la columna FILE_NAME del dataframe entrante,
+    usando el modelo OCR que se pase por el argumento ocr (por defecto Hermes_v2).
+
+    Args.
+        dframe (pd.DataFrame): dataframe que contiene las imagenes a transformar.
+        ocr (str): modelo OCR a usar, por defecto Hermes_v2
+        crop (Regions): region de interes para el recorte de la imagen.
+
+    Returns.
+        dict: lista de diccionarios con la informacion extraida de las imagenes.
     """
     
     matriz = list()
-
-    if not COL_NECESARIAS in dframe.columns.to_list(): 
+    # Validar que el Dataframe tenga las columnas necesarias
+    if not all(col in dframe.columns for col in COL_NECESARIAS): 
         raise ValueError(f"El Dataframe inicial requiere la presencia de las columnas: {COL_NECESARIAS}")
     
     for i, row in dframe.iterrows(): 
@@ -42,7 +50,7 @@ def transform_process_rfc(
                 continue
             else: 
                 print("-"*20, f"Transformado Imagen{i}/ {dframe.shape[0]} || Archivo: {file_name}", "-"*20)
-                imagen = Image.open(file_name).convert('L').crop(crop)
+                imagen = Image.open(file_name).convert('L').crop((crop.left, crop.top, crop.width, crop.height))
                 # Esto hace que la imagen sea más grande para mejorar la precisión del OCR, el Image.LANCZOS es un filtro de alta calidad
                 imagen = imagen.resize((imagen.width * 2, imagen.height * 2), Image.LANCZOS)
                 # Binarizar la imagen, ESTO SIRVE PARA MEJORAR LA PRECISION DEL OCR
@@ -52,7 +60,7 @@ def transform_process_rfc(
                     texto = pytesseract.image_to_string(imagen, lang=ocr, config=CUSTOM_CONFIG_OCR)
                 else: 
                     texto = pytesseract.image_to_string(imagen, config=CUSTOM_CONFIG_OCR)
-                contenido = "\n".join([x for x in texto.splitline() if x!=""])
+                contenido = "\n".join([x for x in texto.splitlines() if x!=""])
                 renglones = contenido.split("\n")
                 for i_renglon, renglon in enumerate(renglones): 
                     data = {

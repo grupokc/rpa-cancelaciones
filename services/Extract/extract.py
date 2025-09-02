@@ -3,6 +3,7 @@ from services.Extract.search_in_seus import SearchInSeus
 
 # Directorio para guardar las prebases 
 SEARCHED_DIR = settings.BD_GENERADORAS_DIR
+clave_extraccion = settings.CLAVE_EXTRACCION
 
 def extract_rfc(
     df_base: pd.DataFrame, 
@@ -10,7 +11,7 @@ def extract_rfc(
     dir_to_save: Path = SEARCHED_DIR, 
     registros_por_recorrido: int = 300, 
     delay_actions: int = 1, 
-    clave_extraccion: str = "Testing"
+    clave_extraccion: str = clave_extraccion
     ):
     """
     Busca usando las herramientas de Hermes.Extract los rfc que se proporcionen en el dataframe entrante. 
@@ -35,28 +36,7 @@ def extract_rfc(
         data=data, 
         delay_btwn_searches=delay_actions,
     )
-    # rfc_search = df_base['RFC'].drop_duplicates()
-    # rfc_search = rfc_search[:registros_por_recorrido].tolist()
-    # rfc_to_search = []
 
-    # names = df_base['NOMBRE'].drop_duplicates()
-    # names_to_add = []
-
-    # for rfc in rfc_search: 
-    #     rfc = str(rfc)
-    #     if len(rfc) > 10 : 
-    #         rfc_to_search.append(rfc[:10])
-    #     if len(rfc) == 10 : 
-    #         rfc_to_search.append(rfc)
-    #     else: 
-    #         continue
-    # use = SearchInSeus(ts_primary=2) # AQUI PODEMOS CAMBIARLO 
-
-
-    # searched = use.search_many_rfc(
-    #     rfc_list=rfc_search,
-    #     delay_btwn_searches=delay_actions, 
-    # )
     df_searched = pd.DataFrame(searched, columns=["RFC", "FILE_NAME", "NOMBRE"])
     id_unico = datetime.now().strftime("%Y%m%d_%H%M%S")
     file_path = dir_to_save / f"{clave_extraccion}_{id_unico}_DYC.xlsx"

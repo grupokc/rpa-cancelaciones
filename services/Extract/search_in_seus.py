@@ -36,6 +36,11 @@ class SearchInSeus(Consultador):
             try: 
                 asegurado = row['NOMBRE']
                 rfc = row['RFC']
+                try:
+                    rfc = rfc[:10]
+                except Exception:
+                    rfc = rfc 
+                    
                 time.sleep(delay_btwn_searches)
                 self.clear_input_rfc()
                 print(f"Busqueda Numero: {i} // {data.shape[0]} || Rfc: {rfc}")
