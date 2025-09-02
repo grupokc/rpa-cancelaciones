@@ -26,4 +26,4 @@ points:
 
 
 regions:
-  TABLA:       {left: 100, top: 200, width: 900, height: 500}
+  TABLA_RFC:       {left: 29, top: 301, width: 757, height: 545}

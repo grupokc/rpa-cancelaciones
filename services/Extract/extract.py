@@ -26,24 +26,38 @@ def extract_rfc(
     if not column_name in df_base.columns.to_list(): 
         msg = f"El archivo no contiene la columna necesaria: {column_name}"
         raise ValueError(msg)
+
+    # Obtener el nombre y rfc 
+    data = df_base.loc[:, ['RFC', 'NOMBRE']].drop_duplicates(subset=['RFC'])
     
-    rfc_search = df_base['RFC'].drop_duplicates()
-    rfc_search = rfc_search[:registros_por_recorrido].tolist()
-    rfc_to_search = []
-    for rfc in rfc_search: 
-        rfc = str(rfc)
-        if len(rfc) > 10 : 
-            rfc_to_search.append(rfc[:10])
-        if len(rfc) == 10 : 
-            rfc_to_search.append(rfc)
-        else: 
-            continue
-    use = SearchInSeus(ts_primary=2) # AQUI PODEMOS CAMBIARLO 
+    use = SearchInSeus(ts_primary=2)
     searched = use.search_many_rfc(
-        rfc_list=rfc_search,
-        delay_btwn_searches=delay_actions
+        data=data, 
+        delay_btwn_searches=delay_actions,
     )
-    df_searched = pd.DataFrame(searched, columns=["RFC", "FILE_NAME"])
+    # rfc_search = df_base['RFC'].drop_duplicates()
+    # rfc_search = rfc_search[:registros_por_recorrido].tolist()
+    # rfc_to_search = []
+
+    # names = df_base['NOMBRE'].drop_duplicates()
+    # names_to_add = []
+
+    # for rfc in rfc_search: 
+    #     rfc = str(rfc)
+    #     if len(rfc) > 10 : 
+    #         rfc_to_search.append(rfc[:10])
+    #     if len(rfc) == 10 : 
+    #         rfc_to_search.append(rfc)
+    #     else: 
+    #         continue
+    # use = SearchInSeus(ts_primary=2) # AQUI PODEMOS CAMBIARLO 
+
+
+    # searched = use.search_many_rfc(
+    #     rfc_list=rfc_search,
+    #     delay_btwn_searches=delay_actions, 
+    # )
+    df_searched = pd.DataFrame(searched, columns=["RFC", "FILE_NAME", "NOMBRE"])
     id_unico = datetime.now().strftime("%Y%m%d_%H%M%S")
     file_path = dir_to_save / f"{clave_extraccion}_{id_unico}_DYC.xlsx"
     df_searched.to_excel(file_path, index=False)

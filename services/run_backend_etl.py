@@ -2,6 +2,7 @@
 from components import *
 from models.etl_result import ETLResult
 from services.Extract.extract import extract_rfc
+from services.Transform.transform import transform_process_rfc
 from config import settings
 import pandas as pd 
 
@@ -18,6 +19,7 @@ def run_backend_etl(input_path: Path, cancel_flag=lambda: False) -> Optional[ETL
 
     output_path, df_searched = extract_rfc(df, column_name="RFC")
 
+    print(df_searched)
     # TODO: Iniciar la transformacion 
 
 

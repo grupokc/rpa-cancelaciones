@@ -40,14 +40,12 @@ class Settings(BaseSettings):
     DIRS: list  = [CAPTURAS_DIR, BD_GENERADAS_DIR, BD_GENERADORAS_DIR]
 
     # ---- Sobre el proceso ETL  ---- 
-    OCR_MODEL: str = "Hermes_v1" 
     CLAVE_EXTRACCION: str = "Testing"
 
 
     # ---- Vectores del Consultador  ----
     ui_file: Path = Path("vectores") # carpeta base
     ui: UIMap | None = None
-
     
     @field_validator("ui")
     def load_ui(cls, v, values):
@@ -59,7 +57,14 @@ class Settings(BaseSettings):
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
         return UIMap(**data) 
 
-
+    # ---- Variables para la Transformacion ----
+    CUSTOM_CONFIG: str = "dpi 300 --psm 6"
+    MODELO_HERMES_OCR: str =  "Hermes_v1"
+    COL_TRANSFORM: list = [
+        'FILE_NAME',
+        'RFC', 
+        'NOMBRE'
+     ]
 
 settings = Settings()
 

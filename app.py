@@ -15,10 +15,5 @@ def main():
 
 
 if __name__ == "__main__":
-    # print(settings.ui.points)
-    # vector = settings.ui.points.get("BUSCAR")
-    # xa = type(settings.ui.points)
-    # print(xa)
-    # print(type(vector))
-    # print(vector.x, vector.y)
+    print(settings.ui.regions.get("TABLA_RFC").left)
     main()

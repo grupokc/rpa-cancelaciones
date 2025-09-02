@@ -39,7 +39,7 @@ class GUIActions(GUIMessages):
         """
         try: 
             text = str(text)
-            keyboard.write(text=text, delay=0.2)
+            keyboard.write(text=text, delay=0.01)
         except Exception as e: 
             print(f"[Error | GUIActions] : {str(e)}")
 

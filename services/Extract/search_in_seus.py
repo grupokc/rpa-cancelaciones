@@ -28,22 +28,28 @@ class SearchInSeus(Consultador):
     
     def search_many_rfc(
         self, 
-        rfc_list: list[str],
-        delay_btwn_searches: int
+        data: pd.DataFrame,
+        delay_btwn_searches: int, 
     ):
         searched = list()
-        for id, rfc in enumerate(rfc_list): 
-            time.sleep(delay_btwn_searches)
-            self.clear_input_rfc()
-            print(f"Busqueda Numero: {id} // {len(rfc_list)} || Rfc: {rfc}")
-            # start_in_home = True if id == 0 else False
-            start_in_home = True if pyautogui.pixel(180, 666) == (0,0, 128) else False
-            file_name_rfc = self._search_rfc(rfc, is_start_home=start_in_home, screen_shot=True)
-
-            if file_name_rfc:
-                searched.append({
-                    "RFC": rfc,
-                    "FILE_NAME": file_name_rfc
-                })
-        
+        for i, row in data.iterrows(): 
+            try: 
+                asegurado = row['NOMBRE']
+                rfc = row['RFC']
+                time.sleep(delay_btwn_searches)
+                self.clear_input_rfc()
+                print(f"Busqueda Numero: {i} // {data.shape[0]} || Rfc: {rfc}")
+                # start_in_home = True if id == 0 else False
+                start_in_home = True if pyautogui.pixel(180, 666) == (0,0, 128) else False
+                file_name_rfc = self._search_rfc(rfc, is_start_home=start_in_home, screen_shot=True)
+                if file_name_rfc: 
+                    searched.append({
+                        "RFC": rfc,
+                        "FILE_NAME": file_name_rfc, 
+                        "NOMBRE": asegurado
+                    })
+            except Exception as e: 
+                msg = f"[Error.SearchInSeus | search_many_rfc] error al buscar el rfc {rfc}: {str(e)}"
+                print(msg)
+                continue
         return searched
