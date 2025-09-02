@@ -119,7 +119,7 @@ class MainWindow(QMainWindow):
         if self.worker_thread is not None:
             QMessageBox.information(self, "En progreso", "Ya hay un proceso en ejecución")
             return
-
+        time.sleep(7)
         self.current_input = input_path
         self.worker_thread = QThread()
         self.worker = ETLWorker(input_path)
