@@ -49,10 +49,10 @@ def transform_process_rfc(
                 print(f"[Error | transform_process_rfc] el archivo: {file_name} NO existe")
                 continue
             else: 
-                print("-"*20, f"Transformado Imagen{i}/ {dframe.shape[0]} || Archivo: {file_name}", "-"*20)
+                print("-"*10, f"Transformando Imagen {i}/ {dframe.shape[0]} || Archivo: {file_name}", "-"*10)
                 imagen = Image.open(file_name).convert('L').crop((crop.left, crop.top, crop.width, crop.height))
                 # Esto hace que la imagen sea más grande para mejorar la precisión del OCR, el Image.LANCZOS es un filtro de alta calidad
-                imagen = imagen.resize((imagen.width * 2, imagen.height * 2), Image.LANCZOS)
+                imagen = imagen.resize((imagen.width * 1.5, imagen.height * 1.5), Image.LANCZOS)
                 # Binarizar la imagen, ESTO SIRVE PARA MEJORAR LA PRECISION DEL OCR
                 imagen = imagen.point(lambda x: 0 if x< 128 else 255, '1')
 
@@ -63,6 +63,7 @@ def transform_process_rfc(
                 contenido = "\n".join([x for x in texto.splitlines() if x!=""])
                 renglones = contenido.split("\n")
                 for i_renglon, renglon in enumerate(renglones): 
+                    print(f"[Renglon {i_renglon}] {renglon}") # Debug
                     data = {
                         "RFC": row['RFC'],
                         "POLIZA": "", 
@@ -82,6 +83,7 @@ def transform_process_rfc(
                         renglon = renglon.replace("|", " ").replace("(", "").replace("[", " ").replace(",", " ").replace("{", " ").replace("!", "").replace(":", "").replace(".", "").replace("  ", " ").replace("  ", " ").replace(" ", "|").strip()
                         try: 
                             partes = renglon.split("|")
+                            print(f"Partes del renglon [{partes}]") # Debug 
                             data['POLIZA'] = partes[1].strip()
                             data['PROMOTORIA'] = partes[2].strip() if len(partes) > 2 else ""
                             data['SOLICITUD'] = partes[3].strip() if len(partes) > 3 else ""

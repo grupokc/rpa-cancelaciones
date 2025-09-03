@@ -9,10 +9,9 @@ def extract_rfc(
     df_base: pd.DataFrame, 
     column_name: str = 'RFC',
     dir_to_save: Path = SEARCHED_DIR, 
-    registros_por_recorrido: int = 300, 
     delay_actions: int = 1, 
     clave_extraccion: str = clave_extraccion
-    ):
+) -> tuple[Path, pd.DataFrame, str]:
     """
     Busca usando las herramientas de Hermes.Extract los rfc que se proporcionen en el dataframe entrante. 
 
@@ -22,7 +21,8 @@ def extract_rfc(
         registros_por_recorrido (int): 
         delay_actions (int)
         clave_extraccion (str)
-    
+    Returns.
+        tuple[Path, pd.DataFrame, str]: ruta del archivo guardado, dataframe con los rfc buscados y el id unico del proceso.
     """
     if not column_name in df_base.columns.to_list(): 
         msg = f"El archivo no contiene la columna necesaria: {column_name}"
@@ -42,4 +42,4 @@ def extract_rfc(
     file_path = dir_to_save / f"{clave_extraccion}_{id_unico}_DYC.xlsx"
     df_searched.to_excel(file_path, index=False)
 
-    return file_path, df_searched
+    return file_path, df_searched, id_unico
