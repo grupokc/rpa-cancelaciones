@@ -186,7 +186,7 @@ class MainWindow(QMainWindow):
             f"""
             Nombre aplicacion: {settings.APP_TITLE}
             VERSION: {settings.VERSION}
-            MODELO OCR: {settings.OCR_MODEL}
+            MODELO OCR: {settings.MODELO_HERMES_OCR}
             FECHA: {get_date()[:-4]}
 
 
